@@ -1,6 +1,6 @@
 # Street-level mobility interactions transfer across cities with minimal local data
 
-Code, processed graph data for the San Francisco test dataset, and trained model checkpoints for the paper:
+Code and trained model checkpoints for the paper:
 
 **Street-level mobility interactions transfer across cities with minimal local data**  
 Hongrong Yang and Markus Schläpfer  
@@ -47,11 +47,10 @@ street-mobility-transfer/
 
 ## Data availability
 
-Due to licensing restrictions from CITYDATA.ai, the full training data used in this study are not publicly available.
-
-The processed San Francisco test graph data are provided in the GitHub Release `v1.0.0` for reproducing the reported metrics and case-study figures. The released data do not include raw mobility trajectories, device-level records, or personally identifiable information.
+The raw mobility data used in this study were provided by CITYDATA.ai and are subject to licensing and privacy restrictions. They cannot be publicly released by the authors.
 
 For access to the full mobility dataset, please contact CITYDATA.ai.
+
 
 ## Released graph data
 
@@ -164,9 +163,9 @@ Graphwave_test.py
 
 ## Notes on reproducibility
 
-The released San Francisco test graph data and trained checkpoints are intended to reproduce the reported San Francisco metrics and the Figure 2 case-study results.
+This repository provides the code and model/demo structure used for the experiments reported in the paper. The processed graph data are not included at this stage because they are derived from restricted CITYDATA.ai mobility data.
 
-Full end-to-end retraining from raw mobility trajectories requires access to the restricted CITYDATA.ai dataset.
+Full end-to-end retraining and reproduction of the reported metrics require access to the restricted CITYDATA.ai dataset. Test dataset may be provided to editors or reviewers upon request, subject to the applicable data-use restrictions.
 
 ## Citation
 
