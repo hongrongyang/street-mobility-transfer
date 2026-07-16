@@ -34,7 +34,8 @@ def collect_hidden_embeddings(model, dataloader, device, max_samples=10000):
                 total_collected += take
 
             if total_collected >= max_samples:
-                break
+                #break
+                continue
 
     hidden_mat = np.concatenate(collected, axis=0)[:max_samples]
     print("Collected hidden shape:", hidden_mat.shape)
