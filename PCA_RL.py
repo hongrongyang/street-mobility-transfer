@@ -8,10 +8,9 @@ from model import TCGCNTransformer
 from cold_start import load_model
 
 
-def collect_hidden_embeddings(model, dataloader, device, max_samples=10000):
+def collect_hidden_embeddings(model, dataloader, device):
     model.eval()
     collected = []
-    total_collected = 0
 
     with torch.no_grad():
         for batch in dataloader:
@@ -19,7 +18,6 @@ def collect_hidden_embeddings(model, dataloader, device, max_samples=10000):
             x = x.to(device)
             edge_index = edge_index.to(device)
 
-            model._debug_hidden_list.clear()
             model(x, edge_index)
 
             for h in model._debug_hidden_list:
@@ -31,13 +29,8 @@ def collect_hidden_embeddings(model, dataloader, device, max_samples=10000):
                 sampled = h[idx].cpu().numpy()
 
                 collected.append(sampled)
-                total_collected += take
 
-            if total_collected >= max_samples:
-                #break
-                continue
-
-    hidden_mat = np.concatenate(collected, axis=0)[:max_samples]
+    hidden_mat = np.concatenate(collected, axis=0)
     print("Collected hidden shape:", hidden_mat.shape)
     return hidden_mat
 
@@ -114,7 +107,7 @@ def run_pca_grouping(model_path):
 
 
     hidden_mat = collect_hidden_embeddings(
-        model, dataloader, device, max_samples=20000
+        model, dataloader, device
     )
 
 
