@@ -4,15 +4,14 @@ import json
 from sklearn.decomposition import PCA
 
 from graph_data_loader_slide_SF_RLFT import get_dataloader
-# from graph_data_loader_slide_FRE_RLFT import get_dataloader
 from model import TCGCNTransformer
 from cold_start import load_model
 
 
 def collect_hidden_embeddings(model, dataloader, device, max_samples=10000):
-
     model.eval()
     collected = []
+    total_collected = 0
 
     with torch.no_grad():
         for batch in dataloader:
@@ -20,6 +19,7 @@ def collect_hidden_embeddings(model, dataloader, device, max_samples=10000):
             x = x.to(device)
             edge_index = edge_index.to(device)
 
+            model._debug_hidden_list.clear()
             model(x, edge_index)
 
             for h in model._debug_hidden_list:
@@ -27,19 +27,18 @@ def collect_hidden_embeddings(model, dataloader, device, max_samples=10000):
                 E = h.shape[0]
 
                 take = min(100, E)
-                idx = torch.randperm(E)[:take]
+                idx = torch.randperm(E, device=h.device)[:take]
                 sampled = h[idx].cpu().numpy()
 
                 collected.append(sampled)
+                total_collected += take
 
-            if sum(a.shape[0] for a in collected) >= max_samples:
+            if total_collected >= max_samples:
+                break
 
-                continue
-
-    hidden_mat = np.concatenate(collected, axis=0)
-    print("Collected hidden shape:", hidden_mat.shape)  #
+    hidden_mat = np.concatenate(collected, axis=0)[:max_samples]
+    print("Collected hidden shape:", hidden_mat.shape)
     return hidden_mat
-
 
 def compute_pca_frequency_groups(hidden_mat, save_path="./sf_frequency_groups.json"):
 
