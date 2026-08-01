@@ -9,7 +9,7 @@ from pre_training_ztp import (
     count_parameters, save_model, evaluate, train, early_stopping
 )
 from model import TCGCNTransformer
-from graph_data_loader_slide_FRE import get_dataloader
+from graph_data_loader_slide_SF import get_dataloader
 
 
 def load_model(model, path, verbose=True):
