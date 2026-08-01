@@ -31,6 +31,8 @@ street-mobility-transfer/
 ├── graph_data_loader_slide_SF_RLFT.py
 ├── graph_data_loader_slide_FRE.py
 ├── graph_data_loader_slide_FRE_RLFT.py
+├── graph_data_loader_slide_NYC.py
+├── graph_data_loader_slide_FRE_NYC.py
 │
 ├── DCRNN.py
 ├── DCRNN_test.py
