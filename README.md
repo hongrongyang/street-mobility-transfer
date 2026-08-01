@@ -1,8 +1,8 @@
-# Street-level mobility interactions transfer across cities with minimal local data
+# Learning transferable spatial interaction representations for street-level mobility forecasting across cities
 
 Code and trained model checkpoints for the paper:
 
-**Street-level mobility interactions transfer across cities with minimal local data**  
+**Learning transferable spatial interaction representations for street-level mobility forecasting across cities**  
 Hongrong Yang and Markus Schläpfer  
 Columbia University
 
@@ -171,7 +171,7 @@ Full end-to-end retraining and reproduction of the reported metrics require acce
 
 This repository accompanies the manuscript:
 
-**Street-level mobility interactions transfer across cities with minimal local data**  
+**Learning transferable spatial interaction representations for street-level mobility forecasting across cities**  
 Hongrong Yang and Markus Schläpfer
 
 A formal citation will be added after publication or after a preprint becomes available.
