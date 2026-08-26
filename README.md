@@ -49,9 +49,9 @@ street-mobility-transfer/
 
 ## Data availability
 
-The raw mobility data used in this study were provided by CITYDATA.ai and are subject to licensing and privacy restrictions. They cannot be publicly released by the authors.
+The raw mobility data used in this study were provided by CityData.AI and are subject to licensing and privacy restrictions. They cannot be publicly released by the authors.
 
-For access to the full mobility dataset, please contact CITYDATA.ai.
+For access to the full mobility dataset, please contact CityData.AI.
 
 
 ## Released graph data
