@@ -69,9 +69,11 @@ scikit-learn           1.8.0
 PyTorch                2.5.1
 PyTorch Geometric      2.6.1
 Stable-Baselines3      2.5.0
+GeoPandas              1.0.1
+OSMnx                  2.0.0
+NetworkX               2.8.8
+pytz                   2024.2
 ```
-
-The code also requires `networkx`, `pytz`, and the dependencies installed with the packages above. The exact environment used for the reported experiments should be recorded in `requirements.txt` or an equivalent environment file.
 
 ### Hardware
 
@@ -105,7 +107,8 @@ Install the dependencies:
 ```bash
 python -m pip install --upgrade pip
 python -m pip install numpy==1.26.4 pandas==2.2.3 scipy==1.13.1 scikit-learn==1.8.0
-python -m pip install torch==2.5.1 torch-geometric==2.6.1 stable-baselines3==2.5.0 networkx pytz
+python -m pip install torch==2.5.1 torch-geometric==2.6.1 stable-baselines3==2.5.0 networkx==2.8.8 pytz==2024.2
+python -m pip install geopandas==1.0.1 osmnx==2.0.0
 ```
 
 For a CUDA-enabled installation of PyTorch, use the command appropriate for the local CUDA version from the official PyTorch installation guide.
@@ -123,10 +126,9 @@ Download the release attachment and extract it locally so that the project direc
 ```text
 street-mobility-transfer/
 └── graph_data/
-    └── SF/
-        └──test/
-            ├── graph_YYYYMMDD_HHMMSS.gpickle
-            └── ...
+    └── SF_test/
+        ├── graph_YYYYMMDD_HHMMSS.gpickle
+        └── ...
 ```
 
 The released graph files contain aggregated, time-indexed POI-level graph data. They do not contain raw GPS records or device-level trajectories.
@@ -174,7 +176,7 @@ Top-0.1% ZTP NLL, MSE, and MAE, where requested by the script
 
 Small numerical differences may occur across hardware and software environments because of floating-point computation.
 
-**Typical demo runtime:** **[run once on a normal desktop and insert the measured time here]**. Runtime depends on the selected checkpoint, the number of graph snapshots, and whether a CPU or GPU is used.
+**Typical demo runtime:** approximately 3–5 minutes on a normal desktop computer. Runtime may vary with the selected checkpoint and available hardware.
 
 ## Optional training demo
 
