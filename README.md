@@ -228,9 +228,7 @@ Graphwave.py and Graphwave_test.py
 
 ## License
 
-The source code in this repository is available under the [MIT License](LICENSE).
-
-The CITYDATA.ai-derived datasets and trained model checkpoints are not covered by this software license and remain subject to the applicable data-use and licensing restrictions.
+No explicit software license has been assigned at this stage. The CITYDATA.ai-derived data and trained model checkpoints remain subject to the applicable data-use and licensing restrictions.
 
 ## Citation
 
