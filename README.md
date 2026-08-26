@@ -123,9 +123,10 @@ Download the release attachment and extract it locally so that the project direc
 ```text
 street-mobility-transfer/
 └── graph_data/
-    └── SF_test/
-        ├── graph_YYYYMMDD_HHMMSS.gpickle
-        └── ...
+    └── SF/
+        └──test/
+            ├── graph_YYYYMMDD_HHMMSS.gpickle
+            └── ...
 ```
 
 The released graph files contain aggregated, time-indexed POI-level graph data. They do not contain raw GPS records or device-level trajectories.
