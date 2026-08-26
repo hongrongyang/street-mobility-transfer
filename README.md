@@ -211,9 +211,6 @@ python pre_training_ztp.py        # Source-city pretraining
 python cold_start_ztp.py          # Target-city cold-start adaptation
 python fine_tuning_PPO.py         # Reinforcement-learning refinement
 python model_performance_test.py  # Model evaluation
-```
-
-Users should review the configuration section of each script and update input paths, output paths, feature ranges, city bounds, checkpoint paths, and training parameters before execution.
 
 ## Reproducing manuscript results
 
