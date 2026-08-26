@@ -158,8 +158,7 @@ if __name__ == "__main__":
     parser.add_argument('--num_poi_types', type=float, default=456, help='Number of POI types')
     parser.add_argument('--embed_dim', type=float, default=5, help='Embedding dimension for the POI types')
     # parser.add_argument('--model_path', type=str, default="./model/cold_start_sf_9d.pth", help='Path to the saved model')
-    # parser.add_argument('--model_path', type=str, default="./model/rl_sf_9d.pth", help='Path to the saved model')
-    parser.add_argument('--model_path', type=str, default="./model/pre_la.pth", help='Path to the saved model')
+    parser.add_argument('--model_path', type=str, default="./model/rl_sf_9d.pth", help='Path to the saved model')
 
     parser.add_argument('--embed_dropout', type=float, default=0)
     args = parser.parse_args()
