@@ -301,7 +301,7 @@ if __name__ == "__main__":
     parser.add_argument('--num_heads', type=int, default=4)
     parser.add_argument('--num_layers', type=int, default=2)
     parser.add_argument('--batch_size', type=int, default=1)
-    parser.add_argument('--num_epochs', type=int, default=20)
+    parser.add_argument('--num_epochs', type=int, default=30)
     parser.add_argument('--learning_rate', type=float, default=4e-4)
     parser.add_argument('--patience_stop', type=int, default=7)
     parser.add_argument('--patience_lr', type=int, default=3)
@@ -315,7 +315,7 @@ if __name__ == "__main__":
     parser.add_argument('--w_max', type=float, default=4.5)
     parser.add_argument('--weight_mode', type=str, default='log', choices=['none', 'log', 'power'])
     parser.add_argument('--tail_min_count', type=int, default=3)
-    parser.add_argument('--tail_max_count', type=int, default=10)
+    parser.add_argument('--tail_max_count', type=int, default=7)
     parser.add_argument('--embed_dropout', type=float, default=0.1)
 
     parser.add_argument('--amp', type=str, default='bf16', choices=['auto', 'off', 'fp16', 'bf16'],
