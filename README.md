@@ -30,10 +30,6 @@ street-mobility-transfer/
 ├── graph_data_loader_slide_LA.py
 ├── graph_data_loader_slide_SF.py
 ├── graph_data_loader_slide_SF_RLFT.py
-├── graph_data_loader_slide_FRE.py
-├── graph_data_loader_slide_FRE_RLFT.py
-├── graph_data_loader_slide_NYC.py
-├── graph_data_loader_slide_FRE_NYC.py
 │
 ├── DCRNN.py
 ├── DCRNN_test.py
@@ -41,6 +37,10 @@ street-mobility-transfer/
 ├── STGCN_test.py
 ├── Graphwave.py
 ├── Graphwave_test.py
+├── MCGCN.py
+├── MCGCN_test.py
+├── edge_mlp.py
+├── edge_mlp_test.py
 │
 ├── README.md
 └── .gitignore
@@ -202,7 +202,7 @@ To use the software with another city or dataset:
 2. Use consistent node identifiers and node ordering across snapshots.
 3. Provide the node attributes required by the model, including POI type, coordinates, dynamic population, temperature, precipitation, and wind speed.
 4. Store directed mobility counts in the edge attribute `population_flow`.
-5. Update the city-specific paths, coordinate bounds, feature-normalization ranges, and POI-type mapping used by the relevant data loader.
+5. Adapt the Los Angeles or San Francisco data loader to the new city. Set its data paths, coordinate bounds, feature normalization ranges, and POI-type mapping.
 6. Preserve chronological order when constructing training, validation, and test splits.
 7. Run the desired training, adaptation, or evaluation script.
 
@@ -219,15 +219,19 @@ python model_performance_test.py  # Model evaluation
 
 The released `SF_test` subset and model checkpoints support verification of the reported San Francisco evaluation metrics produced by `model_performance_test.py`.
 
-Full end-to-end retraining and reproduction of all quantitative results in the manuscript require the complete CITYDATA.ai mobility dataset and therefore cannot be performed using only the publicly released subset. Researchers with authorized access to the full data can use the provided preprocessing, data-loading, training, adaptation, baseline, and evaluation scripts to reproduce the complete workflow.
+Reproducing the training runs requires access to the licensed CITYDATA.ai records. The public repository provides graph data loaders for Los Angeles and San Francisco.
 
-The baseline implementations and associated evaluation scripts are:
+## Baseline models
 
-```text
-DCRNN.py and DCRNN_test.py
-STGCN.py and STGCN_test.py
-Graphwave.py and Graphwave_test.py
-```
+| Baseline | Implementation | Evaluation script |
+| --- | --- | --- |
+| Extended DCRNN | `DCRNN.py` | `DCRNN_test.py` |
+| Extended STGCN | `STGCN.py` | `STGCN_test.py` |
+| Extended Graph WaveNet | `Graphwave.py` | `Graphwave_test.py` |
+| Extended MCGCN | `MCGCN.py` | `MCGCN_test.py` |
+| Shared edge MLP | `edge_mlp.py` | `edge_mlp_test.py` |
+
+The manuscript evaluates MCGCN in Los Angeles because its learned graph depends on the identities of the source-city POIs. The cross-city comparisons include the extended DCRNN, STGCN, Graph WaveNet, and shared edge MLP (Supplementary Note 10). The four released checkpoints listed above belong to the proposed model.
 
 ## License
 
