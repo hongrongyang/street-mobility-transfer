@@ -46,7 +46,7 @@ street-mobility-transfer/
 └── .gitignore
 ```
 
-The repository provides Python source code rather than a compiled standalone executable. The San Francisco evaluation graphs are distributed separately as an archive attached to GitHub Release `v1.0.0`; they are not stored in the main repository tree.
+The repository provides Python source code rather than a compiled standalone executable. The San Francisco evaluation graphs are distributed separately as `SF_test.zip`, attached to [GitHub Release data-v1.0](https://github.com/hongrongyang/street-mobility-transfer/releases/tag/data-v1.0); they are not stored in the main repository tree.
 
 ## System requirements
 
@@ -119,9 +119,11 @@ Typical installation time on a normal desktop computer with an existing Python i
 
 The raw anonymized mobility data used in this study were provided by CITYDATA.ai and are subject to privacy and licensing restrictions. The authors cannot redistribute the raw mobility records. Access to the full dataset may be requested directly from CITYDATA.ai and is subject to its licensing terms.
 
-A processed San Francisco evaluation subset sufficient to run the code demonstration and evaluate the released San Francisco models is provided as a compressed archive attached to [GitHub Release `v1.0.0`](https://github.com/hongrongyang/street-mobility-transfer/releases/tag/v1.0.0). The archive is not tracked in the main branch of the repository.
+A processed San Francisco evaluation subset sufficient to run the code demonstration and evaluate the released San Francisco models is provided as [`SF_test.zip`](https://github.com/hongrongyang/street-mobility-transfer/releases/download/data-v1.0/SF_test.zip), attached to [GitHub Release data-v1.0](https://github.com/hongrongyang/street-mobility-transfer/releases/tag/data-v1.0). The archive is not tracked in the main branch of the repository.
 
-Download the release attachment and extract it locally so that the project directory has the following structure:
+**Download [`SF_test.zip`](https://github.com/hongrongyang/street-mobility-transfer/releases/download/data-v1.0/SF_test.zip), not the automatically generated “Source code (zip)” or “Source code (tar.gz)” archives.** Those archives contain the repository source code, not the evaluation graphs.
+
+Extract the dataset locally so that the project directory has the following structure:
 
 ```text
 street-mobility-transfer/
@@ -140,10 +142,10 @@ The repository also contains [`POI_data/poi_type_mapping_la_to_sf.pkl`](POI_data
 Four trained model checkpoints are provided:
 
 ```text
-model/pre_la.pth              Los Angeles pretrained model
-model/cold_start_sf_9d.pth    San Francisco 9-day cold-start adapted model
-model/rl_sf_9d.pth            San Francisco 9-day reinforcement-learning-refined model
-model/sl_sf_full.pth          San Francisco fully supervised model
+model/pre_la.pth             Los Angeles pretrained model
+model/cold_start_sf_9d.pth   San Francisco 9-day cold-start adapted model
+model/rl_sf_9d.pth           San Francisco 9-day reinforcement-learning-refined model
+model/sl_sf_full.pth         San Francisco fully supervised model
 ```
 
 The checkpoint files contain model state dictionaries only. They do not include raw mobility data, optimizer states, device-level trajectories, or training logs.
@@ -152,7 +154,7 @@ The checkpoint files contain model state dictionaries only. They do not include 
 
 The primary demo evaluates a released checkpoint on the processed San Francisco test graphs. It verifies that the data-loading, model-inference, and metric-calculation pipeline executes correctly.
 
-1. Download and extract `SF_test` as described above.
+1. Download [`SF_test.zip`](https://github.com/hongrongyang/street-mobility-transfer/releases/download/data-v1.0/SF_test.zip) and extract it as described above.
 2. Open `model_performance_test.py`.
 3. Set the test-data path to the extracted `graph_data/SF_test` directory.
 4. Set the model path to one of the released checkpoints in `model/`.
@@ -211,6 +213,7 @@ python pre_training_ztp.py        # Source-city pretraining
 python cold_start_ztp.py          # Target-city cold-start adaptation
 python fine_tuning_PPO.py         # Reinforcement-learning refinement
 python model_performance_test.py  # Model evaluation
+```
 
 ## Reproducing manuscript results
 
