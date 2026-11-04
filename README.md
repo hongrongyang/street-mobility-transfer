@@ -53,7 +53,7 @@ The repository provides Python source code rather than a compiled standalone exe
 
 ### Operating systems
 
-The code has been tested with Python 3.12.6 on Windows 11, version 25H2.
+The code has been tested with Python 3.12.6 on Windows 11. Python 3.12 is required: the pinned PyTorch 2.5.1 wheels are not available for Python 3.13 or later.
 
 Other operating systems may also be compatible but have not been formally tested.
 
@@ -82,28 +82,28 @@ A CUDA-capable GPU is recommended for full training and reinforcement-learning r
 
 ## Installation
 
-Clone the repository and create a clean Python environment:
+Clone the repository (or download it as a ZIP from the GitHub page and extract it):
 
 ```bash
 git clone https://github.com/hongrongyang/street-mobility-transfer.git
 cd street-mobility-transfer
-
-python -m venv .venv
 ```
 
-Activate the environment on macOS or Linux:
-
-```bash
-source .venv/bin/activate
-```
-
-Activate it on Windows:
+Create a Python 3.12 virtual environment. On Windows:
 
 ```text
+py -3.12 -m venv .venv
 .venv\Scripts\activate
 ```
 
-Install the dependencies:
+On macOS or Linux:
+
+```bash
+python3.12 -m venv .venv
+source .venv/bin/activate
+```
+
+Check that the environment uses Python 3.12 (`python --version`), then install the dependencies:
 
 ```bash
 python -m pip install --upgrade pip
@@ -233,8 +233,6 @@ Reproducing the training runs requires access to the licensed CITYDATA.ai record
 | Shared edge MLP | `edge_mlp.py` | `edge_mlp_test.py` |
 
 The manuscript evaluates MCGCN in Los Angeles because its learned graph depends on the identities of the source-city POIs. The cross-city comparisons include the extended DCRNN, STGCN, Graph WaveNet, and shared edge MLP (Supplementary Note 10). The four released checkpoints listed above belong to the proposed model.
-
-Both require the Los Angeles graphs, which are not part of the public release.
 
 ## License
 
