@@ -6,7 +6,10 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.optim.lr_scheduler import ReduceLROnPlateau
-import wandb
+try:
+    import wandb
+except ImportError:
+    wandb = None
 from torch_geometric.nn import GCNConv
 
 from graph_data_loader_slide_LA import get_dataloader
