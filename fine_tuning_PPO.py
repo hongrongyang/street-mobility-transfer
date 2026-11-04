@@ -10,7 +10,10 @@ from graph_data_loader_slide_SF_RLFT import get_dataloader
 from model import TCGCNTransformer
 from cold_start import load_model
 from pre_training_ztp import _last_step_edge_mask
-import wandb
+try:
+    import wandb
+except ImportError:
+    wandb = None
 import json
 from collections import deque
 import os
