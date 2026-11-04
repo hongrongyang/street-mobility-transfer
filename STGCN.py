@@ -7,7 +7,10 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch_geometric.nn import ChebConv
 from torch.optim.lr_scheduler import ReduceLROnPlateau
-import wandb
+try:
+    import wandb
+except ImportError:
+    wandb = None
 from typing import Tuple, List
 
 from pre_training_ztp import (
