@@ -2,7 +2,10 @@ import argparse
 import time
 import gc
 import torch
-import wandb
+try:
+    import wandb
+except ImportError:
+    wandb = None
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 import pre_training_ztp as pre
 from pre_training_ztp import (
