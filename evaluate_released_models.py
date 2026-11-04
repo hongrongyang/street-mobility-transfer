@@ -97,7 +97,7 @@ def load_state(path):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--test_dir", default="./SF_test")
+    ap.add_argument("--test_dir", default="./graph_data/SF_test")
     ap.add_argument("--model_dir", default="./model")
     ap.add_argument("--num_poi_types", type=int, default=456)
     ap.add_argument("--window", type=int, default=12)
