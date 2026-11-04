@@ -21,6 +21,7 @@ street-mobility-transfer/
 │
 ├── model.py
 ├── model_performance_test.py
+├── evaluate_released_models.py
 │
 ├── pre_training_ztp.py
 ├── cold_start_ztp.py
@@ -37,8 +38,8 @@ street-mobility-transfer/
 ├── STGCN_test.py
 ├── Graphwave.py
 ├── Graphwave_test.py
-├── MCGCN.py
-├── MCGCN_test.py
+├── mcgcn.py
+├── mcgcn_test.py
 ├── edge_mlp.py
 ├── edge_mlp_test.py
 │
@@ -150,35 +151,35 @@ model/sl_sf_full.pth         San Francisco fully supervised model
 
 The checkpoint files contain model state dictionaries only. They do not include raw mobility data, optimizer states, device-level trajectories, or training logs.
 
-## Demo: evaluating a released model
+## Demo: evaluating the released models
 
-The primary demo evaluates a released checkpoint on the processed San Francisco test graphs. It verifies that the data-loading, model-inference, and metric-calculation pipeline executes correctly.
+`evaluate_released_models.py` evaluates the four released checkpoints on the processed San Francisco test graphs and prints each metric next to the value reported in the manuscript (Supplementary Table 3).
 
-1. Download [`SF_test.zip`](https://github.com/hongrongyang/street-mobility-transfer/releases/download/data-v1.0/SF_test.zip) and extract it as described above.
-2. Open `model_performance_test.py`.
-3. Set the test-data path to the extracted `graph_data/SF_test` directory.
-4. Set the model path to one of the released checkpoints in `model/`.
-5. Run:
+1. Download [`SF_test.zip`](https://github.com/hongrongyang/street-mobility-transfer/releases/download/data-v1.0/SF_test.zip) and extract it to `graph_data/SF_test/` as described above.
+2. Run from the repository root:
 
 ```bash
-python model_performance_test.py
+python evaluate_released_models.py --test_dir ./graph_data/SF_test --model_dir ./model
 ```
 
-Repeat the run with different checkpoint paths to evaluate the pretrained, cold-start-adapted, reinforcement-learning-refined, and fully supervised models.
+The script loads `pre_la.pth` (Los Angeles pretrained model, zero-shot), `cold_start_sf_9d.pth` (9-day cold-start adaptation), `rl_sf_9d.pth` (9-day cold start with reinforcement-learning refinement) and `sl_sf_full.pth` (supervised training on the full San Francisco month) and evaluates each on the 108 hourly test graphs (27–31 March 2023).
 
 ### Expected output
 
-The script prints the principal evaluation metrics used in the manuscript, including:
+For each checkpoint, the script prints the overall and Top-1% ZTP NLL, MSE and MAE, the corresponding values from the manuscript, and the relative difference. The reported values are:
 
-```text
-Overall ZTP NLL, MSE, and MAE
-Top-1% ZTP NLL, MSE, and MAE
-Top-0.1% ZTP NLL, MSE, and MAE, where requested by the script
-```
+| Model | Top-1% ZTP NLL | Top-1% MSE | Top-1% MAE | Overall ZTP NLL | Overall MSE | Overall MAE |
+| --- | --- | --- | --- | --- | --- | --- |
+| `pre_la.pth` (zero-shot) | 3.849 | 12.696 | 2.008 | 0.248 | 0.274 | 0.227 |
+| `cold_start_sf_9d.pth` | 2.388 | 6.893 | 1.450 | 0.225 | 0.339 | 0.218 |
+| `rl_sf_9d.pth` | 2.336 | 6.772 | 1.441 | 0.240 | 0.375 | 0.237 |
+| `sl_sf_full.pth` | 2.349 | 7.141 | 1.415 | 0.290 | 0.385 | 0.291 |
 
-Small numerical differences may occur across hardware and software environments because of floating-point computation.
+ZTP NLL is the unweighted zero-truncated Poisson negative log-likelihood; MSE and MAE are computed between the observed count and the ZTP mean. The Top-1% subset consists of the ⌈0.01 M⌉ test edge–hour observations with the largest observed counts among the M test observations, with ties at the threshold count resolved in a fixed order, as in the manuscript. Small numerical differences may occur across hardware and software environments.
 
-**Typical demo runtime:** approximately 3–5 minutes on a normal desktop computer. Runtime may vary with the selected checkpoint and available hardware.
+**Typical runtime:** approximately 3–5 minutes per checkpoint on a normal desktop computer, less on a GPU.
+
+`model_performance_test.py` remains available for evaluating a single checkpoint with the data and model paths set inside the script.
 
 ## Optional training demo
 
@@ -217,7 +218,7 @@ python model_performance_test.py  # Model evaluation
 
 ## Reproducing manuscript results
 
-The released `SF_test` subset and model checkpoints support verification of the reported San Francisco evaluation metrics produced by `model_performance_test.py`.
+The released `SF_test` subset and model checkpoints reproduce the San Francisco entries of Supplementary Table 3 for zero-shot transfer, 9-day cold-start adaptation, 9-day cold-start adaptation with RL refinement and full supervision; run `evaluate_released_models.py` as described above.
 
 Reproducing the training runs requires access to the licensed CITYDATA.ai records. The public repository provides graph data loaders for Los Angeles and San Francisco.
 
@@ -228,10 +229,21 @@ Reproducing the training runs requires access to the licensed CITYDATA.ai record
 | Extended DCRNN | `DCRNN.py` | `DCRNN_test.py` |
 | Extended STGCN | `STGCN.py` | `STGCN_test.py` |
 | Extended Graph WaveNet | `Graphwave.py` | `Graphwave_test.py` |
-| Extended MCGCN | `MCGCN.py` | `MCGCN_test.py` |
+| Extended MCGCN | `mcgcn.py` | `mcgcn_test.py` |
 | Shared edge MLP | `edge_mlp.py` | `edge_mlp_test.py` |
 
 The manuscript evaluates MCGCN in Los Angeles because its learned graph depends on the identities of the source-city POIs. The cross-city comparisons include the extended DCRNN, STGCN, Graph WaveNet, and shared edge MLP (Supplementary Note 10). The four released checkpoints listed above belong to the proposed model.
+
+The two baselines added in the revision are trained and evaluated on the Los Angeles graphs with
+
+```bash
+python mcgcn.py          # trains the extended MCGCN on ./graph_data/LA/train and ./graph_data/LA/val
+python mcgcn_test.py     # evaluates ./final_model/compare/mcgcn_wztp.pth on ./graph_data/LA/test
+python edge_mlp.py
+python edge_mlp_test.py
+```
+
+Both require the Los Angeles graphs, which are not part of the public release.
 
 ## License
 
