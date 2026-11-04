@@ -234,15 +234,6 @@ Reproducing the training runs requires access to the licensed CITYDATA.ai record
 
 The manuscript evaluates MCGCN in Los Angeles because its learned graph depends on the identities of the source-city POIs. The cross-city comparisons include the extended DCRNN, STGCN, Graph WaveNet, and shared edge MLP (Supplementary Note 10). The four released checkpoints listed above belong to the proposed model.
 
-The two baselines added in the revision are trained and evaluated on the Los Angeles graphs with
-
-```bash
-python mcgcn.py          # trains the extended MCGCN on ./graph_data/LA/train and ./graph_data/LA/val
-python mcgcn_test.py     # evaluates ./final_model/compare/mcgcn_wztp.pth on ./graph_data/LA/test
-python edge_mlp.py
-python edge_mlp_test.py
-```
-
 Both require the Los Angeles graphs, which are not part of the public release.
 
 ## License
