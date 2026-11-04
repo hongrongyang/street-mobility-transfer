@@ -3,7 +3,10 @@ import time
 import gc
 import torch
 import torch.nn.functional as F
-import wandb
+try:
+    import wandb
+except ImportError:
+    wandb = None
 import math
 from contextlib import nullcontext
 from torch.optim.lr_scheduler import ReduceLROnPlateau
