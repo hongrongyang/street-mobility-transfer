@@ -46,8 +46,7 @@ def metrics(y, lam):
     out = {"overall_NLL": nll.mean().item(), "overall_MSE": (d ** 2).mean().item(), "overall_MAE": d.abs().mean().item()}
     k = max(1, int(math.ceil(0.01 * y.numel())))
     idx = torch.topk(y, k, largest=True, sorted=False).indices
-    out.update({"top1_NLL": nll[idx].mean().item(), "top1_MSE": (d[idx] ** 2).mean().item(), "top1_MAE": d[idx].abs().mean().item(),
-                "n_edges": int(y.numel()), "top1_threshold": y[idx].min().item()})
+    out.update({"top1_NLL": nll[idx].mean().item(), "top1_MSE": (d[idx] ** 2).mean().item(), "top1_MAE": d[idx].abs().mean().item()})
     return out
 
 
@@ -122,7 +121,6 @@ def main():
         m = evaluate(model, loader, device)
         for k, r in zip(KEYS, ref):
             print(f"{name:26s} {k:12s} {m[k]:10.3f} {r:10.3f} {100 * (m[k] / r - 1):+7.1f}%")
-        print(f"{'':26s} edges {m['n_edges']:,}  top-1% threshold {m['top1_threshold']:.0f}")
         print()
 
 
